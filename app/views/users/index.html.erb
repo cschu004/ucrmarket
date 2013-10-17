@@ -1,11 +1,11 @@
+<% if isadmin? %>
 <h1>Listing users</h1>
 
+<div class="center hero-unit">
 <table>
   <thead>
     <tr>
-      <th>Isadmin</th>
       <th>Username</th>
-      <th>Password</th>
       <th>Email</th>
       <th></th>
       <th></th>
@@ -16,9 +16,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.isadmin %></td>
         <td><%= user.username %></td>
-        <td><%= user.password %></td>
         <td><%= user.email %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
@@ -31,3 +29,38 @@
 <br>
 
 <%= link_to 'New User', new_user_path %>
+</div>
+
+<% else %>
+
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Dialog - Modal message</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <script>
+  $(function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+			window.location = "/";
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+ 
+<div id="dialog-message">
+  <p>
+    Sorry, only an Administrator may access other users' accounts.
+</div>
+
+</body>
+
+<% end %>

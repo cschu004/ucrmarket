@@ -1,4 +1,4 @@
 json.array!(@products) do |product|
-  json.extract! product, :userid, :title, :price, :description
+  json.extract! product, :user_id, :title, :price, :description
   json.url product_url(product, format: :json)
 end

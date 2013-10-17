@@ -1,24 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Userid:</strong>
-  <%= @product.userid %>
-</p>
+<%= render 'products/sidebar' %>
+<div class="hero-unit">
+  <strong>User:</strong>
+  <% if signed_in? and isadmin? %>
+  <%= link_to @product.user.username, @product.user %>
+  <% else %>
+   <%= @product.user.username %> 
+   <% end %><br>
 
-<p>
   <strong>Title:</strong>
-  <%= @product.title %>
-</p>
+  <%= @product.title %> <br>
 
-<p>
   <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+  <%= @product.price %> <br>
 
-<p>
   <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+  <%= @product.description %> <br>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<% if current_user?(@product.user) %>
+<td><%= link_to 'Edit', edit_product_path(@product) %></td> |
+<td><%= link_to 'Delete', @product, method: :delete, data: { confirm: 'Are you sure?' } %></td> |
+<% end %>
+<%= link_to 'Browse Products', products_path %>
+</div>

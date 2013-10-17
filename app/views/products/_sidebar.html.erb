@@ -1,0 +1,13 @@
+<div class= "span">
+<div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Products</li>
+              <% @products.each do |product| %>
+              		<li><%= link_to product.title, product %></li>
+              <% end %>
+              <% if signed_in? %>
+              <%= link_to 'New Product', new_product_path %>
+              <% end %>
+            </ul>
+          </div>
+</div>

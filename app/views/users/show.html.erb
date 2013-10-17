@@ -1,9 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Isadmin:</strong>
-  <%= @user.isadmin %>
-</p>
+<% if current_user?(@user) || isadmin?%>
 
 <p>
   <strong>Username:</strong>
@@ -11,14 +8,53 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <% if @user.products.any? %>
+		<strong>Products:</strong>
+		<% @user.products.each do |prod| %>
+  			<%= link_to prod.title, prod  %>
+		<% end %>
+    <% end %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> 
+
+
+
+<% if isadmin? %>
+	|<%= link_to "Users", users_path %>
+<% end %>
+
+<% else %>
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Dialog - Modal message</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <script>
+  $(function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+        	window.location = "/";
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+  </script>
+</head>
+  
+  <div id="dialog-message">
+  <p>
+    Sorry, you are not allowed to access other users' information 
+  </p>
+</div>
+<% end %>

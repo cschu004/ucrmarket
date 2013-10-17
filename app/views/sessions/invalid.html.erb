@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Dialog - Modal message</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <script>
+  $(function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+ 
+<div id="dialog-message" title="Invalid Username/Password">
+  <p>
+    Sorry, you have entered an invalid username-password combination, please check your spelling and try again.
+  </p>
+</div>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(:session, url: sessions_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+		<br>
+      <%= f.submit "Log in", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+</div>
+ 
+</body>
+</html>
